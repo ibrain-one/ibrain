@@ -25,3 +25,8 @@ iBrain One represents not just the culmination of years of work but the beginnin
 ## Join the iBrain One Community
 
 If you're inspired by the vision of iBrain One and want to contribute to a future where web interaction is intuitive, natural, and accessible to everyone, we invite you to join our community. Together, we can build a digital ecosystem that leverages the full potential of decentralized AI, microapps, and voice-driven interfaces to make the web a more inclusive and user-friendly space.
+
+## Acknowledgments
+
+We would like to extend our heartfelt gratitude to the Vercel team for their incredible work on the project starter boilerplate. This boilerplate has served as the foundation for the iBrain One app, enabling us to kickstart our project with a robust and scalable architecture. The Vercel team's commitment to excellence and open-source contributions has significantly accelerated our development process, and for that, we are truly thankful.
+
