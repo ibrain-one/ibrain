@@ -30,3 +30,11 @@ If you're inspired by the vision of iBrain One and want to contribute to a futur
 
 We would like to extend our heartfelt gratitude to the Vercel team for their incredible work on the project starter boilerplate. This boilerplate has served as the foundation for the iBrain One app, enabling us to kickstart our project with a robust and scalable architecture. The Vercel team's commitment to excellence and open-source contributions has significantly accelerated our development process, and for that, we are truly thankful.
 
+## Explore More About iBrain One
+
+- **Project Roadmap**: For a detailed view of our planned features and development milestones, visit our [Project Roadmap](https://github.com/orgs/ibrain-one/projects/5/views/4).
+
+- **Architecture Documentation**: To dive deeper into the architectural design and documentation of iBrain One, check out our [Wiki](https://github.com/ibrain-one/ibrain/wiki).
+
+Join us on this exciting journey to revolutionize web interaction with iBrain One.
+
