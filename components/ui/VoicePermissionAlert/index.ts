@@ -1,0 +1,1 @@
+export {default as VoicePermissionAlert} from './VoicePermissionAlert'

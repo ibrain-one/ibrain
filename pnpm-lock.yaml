@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@brainstack/react':
+    specifier: ^1.3.152
+    version: 1.3.152(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-toast':
     specifier: ^1.1.5
     version: 1.1.5(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0)(react@18.2.0)
@@ -114,6 +117,67 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+
+  /@brainstack/auth@1.0.147:
+    resolution: {integrity: sha512-eN8EvE8X9PKqQQi6BQTld0T/b9ROR3OOLrmIhSzObUWUNOx8nZeTeYSLRkTbqGxKBzTpXpdbOOsbG0bJXmvb9Q==}
+    dev: false
+
+  /@brainstack/config@1.0.145:
+    resolution: {integrity: sha512-JT7yLOnt5YR6Ilnzo9TjpOAmRmv59Lsj95pKWIk+3MoGVTVtWN2k28Z7eOMLsI+gOf8zrqGcwRJuShxiyNsPCw==}
+    dev: false
+
+  /@brainstack/core@1.2.143:
+    resolution: {integrity: sha512-1YRwPDIENCZuXKfXL+F68KTq2JKVb0Rt1JPJx67K6E/4DT26b/1E8Fs+FYBbsAjREL8huXr2fPVetlkwsFopMg==}
+    dependencies:
+      '@brainstack/auth': 1.0.147
+      '@brainstack/config': 1.0.145
+      '@brainstack/crud': 1.0.141
+      '@brainstack/hub': 1.2.49
+      '@brainstack/inject': 1.2.142
+      '@brainstack/log': 1.1.150
+      '@brainstack/state': 1.1.146
+      '@brainstack/store': 1.0.141
+    dev: false
+
+  /@brainstack/crud@1.0.141:
+    resolution: {integrity: sha512-C59/d7f4msbdbojP3m4MpbJVPFCKsYHbAEHs85T3WhUD4LDSrZi81j6vdf1o680UKB8Aegvzp4nS3yPHy9DOow==}
+    dev: false
+
+  /@brainstack/hub@1.2.49:
+    resolution: {integrity: sha512-5aL8S+Bnqx54uUn/WcfAgB4FSoGnIA9PpaMIylfoKHRZOjzZ0e1HHIhK8x5W2mq7axL4XDwvvpvUJy3AQaG72g==}
+    dependencies:
+      '@brainstack/log': 1.1.150
+    dev: false
+
+  /@brainstack/inject@1.2.142:
+    resolution: {integrity: sha512-RzyP6sMY+F0ryobLEyuxgLAI0lsrRaVBcemmnJyh+OQCQHHDNRB5BjEdQ6I+S07uU2XmwgDSSM9e8ai9VDW3HQ==}
+    dev: false
+
+  /@brainstack/log@1.1.150:
+    resolution: {integrity: sha512-jwQodSiP1gp1HCIq3D7ML3GdMOi3dLszYVnq9r22hW7QtRh9Bqh/kk6tTrmSP1c8qQ5KBGVRr4zLb0I+quTvsw==}
+    dev: false
+
+  /@brainstack/react@1.3.152(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-vbe6W5Ydidx8hC+q8WxH4RelT6BqnQL/72/mqkgiiHsyZuYPtIG1Zi5HXwSe8TrbWxrP+2nCjuw61Ci8vsauMQ==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@brainstack/core': 1.2.143
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@brainstack/state@1.1.146:
+    resolution: {integrity: sha512-HOniHoAWK+6tX9N4lxxMvPchru0Q8FuWz6Sf7XA4Y9GXym5lW6g3aaEFdsufcvEpZN76t/0NICraz7Lbb5iuuQ==}
+    dev: false
+
+  /@brainstack/store@1.0.141:
+    resolution: {integrity: sha512-E1b9GbVq27naQgRWdJDf6pBQH1V/OLtM+xM70MuQnAmXwzynCvpIXwZNmKaBknBRp/G5GMx8oODSk3GJGFIQ1w==}
+    dependencies:
+      '@brainstack/hub': 1.2.49
+      '@brainstack/state': 1.1.146
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.56.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
