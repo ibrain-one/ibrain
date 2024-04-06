@@ -1,7 +1,19 @@
 import { type NextRequest } from 'next/server';
 import { updateSession } from '@/utils/supabase/middleware';
+import { createClient } from './utils/supabase/server';
 
 export async function middleware(request: NextRequest) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (
+    (error || !data?.user) &&
+    request.nextUrl.pathname.startsWith('/protected')
+  ) {
+    return Response.redirect(new URL('/signin/password_signin', request.url));
+  }
+
   return await updateSession(request);
 }
 
