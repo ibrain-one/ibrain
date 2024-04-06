@@ -1,5 +1,5 @@
-export default async function ProtectePage() {
+export default async function ProtectePdage() {
   return (
-  <>Protectd Page</>
+  <>Protected Page</>
   );
 }
