@@ -10,6 +10,7 @@ import { subscribeTool } from '../tools/subscribeTool';
 import { navigateToFeatureTool } from '../tools/navigationTool';
 import useOAuthSignIn from '@/app/hooks/useOAuthSignIn';
 import { useRouter } from 'next/navigation';
+import { featureExplainerTool } from '../tools/featureTool';
 
 const d = new OpenAi({
   baseURL: process.env.NEXT_PUBLIC_BASEURL,
@@ -23,7 +24,8 @@ const tools: any = {
   explainpricing: pricingTool,
   changeconversationlanguage: changeConversationLanguageTool,
   subscribe: subscribeTool,
-  navigateto: navigateToFeatureTool
+  navigateto: navigateToFeatureTool,
+  explainfeatures:featureExplainerTool
 };
 
 // Tool lookup function
