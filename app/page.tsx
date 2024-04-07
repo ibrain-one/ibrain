@@ -1,6 +1,6 @@
 import Pricing from '@/components/ui/Pricing/Pricing';
 import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 export default async function PricingPage() {
   const supabase = createClient();
@@ -27,16 +27,11 @@ export default async function PricingPage() {
     .order('metadata->index')
     .order('unit_amount', { referencedTable: 'prices' });
 
+  if (user) {
+    redirect('/protected/user');
+  } else {
+    redirect('/microapps/landing');
+  }
 
-    if (user) {
-      redirect('/protected/user')
-    }
-
-  return (
-    <Pricing
-      user={user}
-      products={products ?? []}
-      subscription={subscription}
-    />
-  );
+  return <></>;
 }
