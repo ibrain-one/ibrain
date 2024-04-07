@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { getValue, useBrainStack } from '../providers/brainstack';
+import { useEffect } from 'react';
+import { useBrainStack } from '../providers/brainstack';
 
 export type MessageProcessor = (message: string) => string;
 
@@ -20,21 +20,11 @@ export const useCommunicationManager = (
   options: UseCommunicationManagerOptions
 ) => {
   const bstack = useBrainStack();
-  const [history, setHistory] = useState<CommunicationHistory>([]);
-  const h: CommunicationHistory = getValue('history');
-
-  const processMessage = (
-    message: string,
-    processors: MessageProcessor[] = []
-  ): string => {
-    return processors.reduce((acc, process) => process(acc), message);
-  };
-
   const addCommunication = (role: 'user' | 'assistant', content: string) => {
-    const processedContent =
-      role === 'user'
-        ? processMessage(content, options.userMessageCustomProcessHandler)
-        : processMessage(content, options.aiMessageCustomProcessHandler);
+    const processedContent = content;
+    // role === 'user'
+    //   ? processMessage(content, options.userMessageCustomProcessHandler)
+    //   : processMessage(content, options.aiMessageCustomProcessHandler);
 
     const newCommunication: Communication = {
       role,
@@ -42,7 +32,6 @@ export const useCommunicationManager = (
       timestamp: new Date()
     };
 
-    setHistory((prevHistory) => [...prevHistory, newCommunication]);
     bstack.store.mutate((s) => ({
       ...s,
       history: [...s?.history, newCommunication]
@@ -50,8 +39,7 @@ export const useCommunicationManager = (
   };
 
   const getHistory = (limit: number = history.length): CommunicationHistory => {
-    // return history.slice(-limit);
-    return h.slice(-limit);
+    return bstack.store.getState()?.history?.slice(-limit);
   };
 
   // Public method to add user communication
@@ -66,21 +54,24 @@ export const useCommunicationManager = (
     bstack.store.emit('communication.ai', { text: content });
   };
 
-  bstack.useOn(
-    'speech2text.result',
-    (e: any) => {
+  useEffect(() => {
+    const unsubscribe = bstack.store.on('speech2text.result', (e: any) => {
       addUserCommunication(e.text);
-    },
-    []
-  );
+    });
 
-  bstack.useOn(
-    'ibrain.speak',
-    (e: any) => {
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  useEffect(() => {
+    const unsubscribe = bstack.store.on('ibrain.speak', (e: any) => {
       addAICommunication(e.text);
-    },
-    []
-  );
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return {
     getHistory

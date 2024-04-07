@@ -2,10 +2,12 @@
 import { useCommunicationManager } from '@/app/hooks/useCommunicationManager';
 import { useBrainStack } from '@/app/providers/brainstack';
 import OpenAi from 'openai';
-import {
-  ChatCompletionMessageParam,
-  ChatCompletionTool
-} from 'openai/resources';
+import { ChatCompletionMessageParam } from 'openai/resources';
+import { useEffect } from 'react';
+import { weatherTool } from '../tools/weatherTool';
+import { pricingTool } from '../tools/pricingTool';
+import { changeConversationLanguageTool } from '../tools/languageTool';
+import { subscribeTool } from '../tools/subscribeTool';
 
 const d = new OpenAi({
   baseURL: process.env.NEXT_PUBLIC_BASEURL,
@@ -13,104 +15,105 @@ const d = new OpenAi({
   dangerouslyAllowBrowser: true
 });
 
-const model = process.env.NEXT_PUBLIC_MODEL;
+const model: any = process.env.NEXT_PUBLIC_MODEL;
+
+const tools: any = {
+  getweatherfromcity: weatherTool,
+  explainpricing: pricingTool,
+  changeconversationlanguage: changeConversationLanguageTool,
+  subscribe: subscribeTool
+};
+
+// Tool lookup function
+const getToolByName = (name: any) => {
+  return tools[name];
+};
 
 export default function useIBrain() {
   const bstack = useBrainStack();
+  // DONT USE useCommunciationManager() twice
   const { getHistory } = useCommunicationManager({});
   const promptBuilderMock = (action: string, message: string) =>
     `Prompt Test: action: ${action} message: ${message} history: ` +
     getHistory(5);
 
-  const createTool = (
-    name: string,
-    description: string,
-    required: string[],
-    properties: Record<string, any>
-  ): ChatCompletionTool => {
-    return {
-      type: 'function',
-      function: {
-        name,
-        description,
-        parameters: {
-          type: 'object',
-          properties,
-          required
-        }
-      }
-    };
-  };
-
-  const weatherTool = createTool(
-    'getWeatherFromCity',
-    'Useful to retreive weather for the specific city. Argument is the city name asked or unknown.',
-    [],
-    {
-      city: {
-        type: 'string',
-        description: 'The city to get weather.'
-      }
-    }
-  );
-
   const messages: Array<ChatCompletionMessageParam> = [];
+
+  const executeToolCall = async (toolCall: any) => {
+    const tool = getToolByName(String(toolCall.function.name).toLowerCase());
+    if (!tool) {
+      console.error(`No tool found with name: ${String(toolCall.function.name).toLowerCase()}`);
+      return null;
+    }
+
+    try {
+      const args = JSON.parse(toolCall.function.arguments);
+      const content = await tool.execute(args);
+      return {
+        content,
+        tool_call_id: toolCall.id
+      };
+    } catch (error) {
+      console.error(`Error executing tool ${toolCall.function.name}:`, error);
+      return null;
+    }
+  };
 
   const processMessage = async (text: string) => {
     messages.push({ role: 'user', content: text });
+
     const answer = await d.chat.completions.create({
-      //@ts-ignore
       model,
       messages,
       tool_choice: 'auto',
-      tools: [weatherTool]
+      tools: Object.keys(tools).map((key) => tools[key].definition)
     });
 
     console.log(answer);
-    //answer.choices[0].message.tool_calls[0].function.arguments
-    if (!answer?.choices?.[0]?.message?.tool_calls) {
-      console.log('No tools call: ', answer?.choices?.[0]?.message.content);
-    }
 
-    if (answer?.choices?.[0]?.message?.tool_calls?.[0]?.id) {
-      const a = JSON.parse(
-        answer.choices[0].message.tool_calls[0].function.arguments
+    if (!answer?.choices?.[0]?.message?.tool_calls) {
+      console.log('No tool calls:', answer?.choices?.[0]?.message.content);
+      bstack.store.emit('communication.ai', {
+        text: answer?.choices?.[0]?.message.content
+      });
+    } else {
+      messages.push(answer.choices[0].message);
+
+      const toolCallsPromises =
+        answer.choices[0].message.tool_calls.map(executeToolCall);
+      const toolResponses = await Promise.all(toolCallsPromises);
+
+      const validResponses = toolResponses.filter(
+        (response) => response !== null
       );
 
-      let content = 'Specify the city you want to have the weather?';
-
-      if (a?.city) {
-        // find weather for city
-        content = 'It is 34 celcius';
-      }
-
-      messages.push(answer.choices[0].message);
-      messages.push({
-        role: 'tool',
-        tool_call_id: answer.choices[0].message.tool_calls[0].id,
-        content
+      validResponses.forEach((args) => {
+        const { content, tool_call_id } = args ?? {};
+        messages.push({
+          role: 'tool',
+          tool_call_id,
+          content
+        });
       });
 
       const toolanswer = await d.chat.completions.create({
-        //@ts-ignore
         model,
         messages
-        // tool_choice: 'auto',
-        // tools: [weatherTool]
       });
 
-      console.log(toolanswer);
+      bstack.store.emit('communication.ai', {
+        text: toolanswer?.choices?.[0]?.message.content
+      });
     }
   };
 
-  bstack.useOn(
-    'communication.user',
-    (e: any) => {
-      //   const prompt = promptBuilderMock('hear', e.text);
-      // bstack.log.info(prompt) // + tools
-      //   createAiTask(prompt, [pricingTool(), navigationTool()]);
+  useEffect(() => {
+    const unsubscribe = bstack.store.on('communication.user', (e: any) => {
       processMessage(e.text);
-    },
-    [processMessage]
-  );
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 }

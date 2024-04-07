@@ -18,20 +18,17 @@ export const useTextToSpeech = () => {
 
     // Configure utterance properties as needed
     bstack.store.mutate((s) => ({ ...s, isSpeaking: true }));
-    bstack.store.emit('speech.speaking');
     synthesisRef.current.speak(utterance);
   };
 
   const aiSpeak = (text: string) => {
+    bstack.store.emit('speech.speaking');
     const sentences = text
       .split(/(?<=[.!?])/)
       .filter((sentence) => sentence.trim());
 
     sentences.forEach((sentence, index) => {
-      // addSyncTask(
-      //   'iBrain Talk',
-      //   () =>
-      //     new Promise<void>((resolve) => {
+
       const trimmedSentence = sentence.trim();
       if (trimmedSentence) {
         const utterance = new SpeechSynthesisUtterance(trimmedSentence);
@@ -59,7 +56,7 @@ export const useTextToSpeech = () => {
         }
 
         utterance.onend = () => {
-          if (index <= sentences.length - 1) {
+          if (index >= sentences.length - 1) {
             bstack.store.mutate((s) => ({ ...s, isSpeaking: false }));
             bstack.store.emit('speech.silent');
           }
@@ -67,19 +64,18 @@ export const useTextToSpeech = () => {
         };
 
         speakText(utterance);
-        // } else {
-        //   resolve(); // Resolve immediately if there's no sentence to speak
       }
-      // })
-      // );
     });
   };
 
-  bstack.useOn(
-    'communication.ai',
-    (e: any) => {
+  useEffect(() => {
+    const unsubscribe = bstack.store.on('communication.ai', (e: any) => {
       aiSpeak(e.text);
-    },
-    []
-  );
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
 };

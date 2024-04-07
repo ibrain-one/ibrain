@@ -10,7 +10,7 @@ export default function Init() {
   useDevTools(core);
   const { VoicePermissionRequest } = useSpeech2text();
   useTextToSpeech();
-  const { getHistory } = useCommunicationManager({});
+  // const { getHistory } = useCommunicationManager({});
 
   return (
     <>
@@ -22,13 +22,13 @@ export default function Init() {
       >
         Speak
       </button>
-      <button
+      {/* <button
         onClick={() => {
           console.log(getHistory());
         }}
       >
         History
-      </button>
+      </button> */}
     </>
   );
 }

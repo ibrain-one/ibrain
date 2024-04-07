@@ -25,5 +25,5 @@ export const useDevTools = (core) => {
         core.log.info(`Disconnected from Redux Devtools`);
       };
     }
-  }, [core.store]);
+  }, []);
 };
