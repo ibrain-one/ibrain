@@ -4,10 +4,10 @@ import { useBrainStack } from '@/app/providers/brainstack';
 import OpenAi from 'openai';
 import { ChatCompletionMessageParam } from 'openai/resources';
 import { useEffect } from 'react';
-import { weatherTool } from '../tools/weatherTool';
 import { pricingTool } from '../tools/pricingTool';
 import { changeConversationLanguageTool } from '../tools/languageTool';
 import { subscribeTool } from '../tools/subscribeTool';
+import { navigateToFeatureTool } from '../tools/navigationTool';
 
 const d = new OpenAi({
   baseURL: process.env.NEXT_PUBLIC_BASEURL,
@@ -18,10 +18,10 @@ const d = new OpenAi({
 const model: any = process.env.NEXT_PUBLIC_MODEL;
 
 const tools: any = {
-  getweatherfromcity: weatherTool,
   explainpricing: pricingTool,
   changeconversationlanguage: changeConversationLanguageTool,
-  subscribe: subscribeTool
+  subscribe: subscribeTool,
+  navigateto: navigateToFeatureTool
 };
 
 // Tool lookup function
@@ -42,7 +42,9 @@ export default function useIBrain() {
   const executeToolCall = async (toolCall: any) => {
     const tool = getToolByName(String(toolCall.function.name).toLowerCase());
     if (!tool) {
-      console.error(`No tool found with name: ${String(toolCall.function.name).toLowerCase()}`);
+      console.error(
+        `No tool found with name: ${String(toolCall.function.name).toLowerCase()}`
+      );
       return null;
     }
 
