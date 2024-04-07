@@ -8,6 +8,8 @@ import { pricingTool } from '../tools/pricingTool';
 import { changeConversationLanguageTool } from '../tools/languageTool';
 import { subscribeTool } from '../tools/subscribeTool';
 import { navigateToFeatureTool } from '../tools/navigationTool';
+import useOAuthSignIn from '@/app/hooks/useOAuthSignIn';
+import { useRouter } from 'next/navigation';
 
 const d = new OpenAi({
   baseURL: process.env.NEXT_PUBLIC_BASEURL,
@@ -118,4 +120,19 @@ export default function useIBrain() {
       unsubscribe();
     };
   }, []);
+
+  const { push } = useRouter();
+  const { handleSignIn } = useOAuthSignIn();
+
+  bstack.useOn(
+    'tool.signin',
+    (e: any) => {
+      if (!e?.provider || String(e?.provider).toLowerCase().includes('email')) {
+        push(`/signin`);
+      } else {
+        handleSignIn(e.provider);
+      }
+    },
+    []
+  );
 }

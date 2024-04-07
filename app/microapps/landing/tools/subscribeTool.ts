@@ -1,3 +1,4 @@
+import { core } from '@/app/providers/brainstack';
 import { createTool } from './createTool';
 
 export interface SubscriptionArguments {
@@ -23,10 +24,13 @@ export const subscribeTool = createTool(
 
     switch (args.method.toLowerCase()) {
       case 'email':
+        core.store.emit('tool.signin', { provider: 'email' });
         return 'Instruct the user to check their email inbox for a confirmation message. Ensure the user understands they need to click the confirmation link to complete the subscription process.';
       case 'google':
+        core.store.emit('tool.signin', { provider: 'google' });
         return 'Confirm to the user that their subscription via Google account is successful. Advise them on the next steps, if any, or what content they can now access.';
       case 'github':
+        core.store.emit('tool.signin', { provider: 'github' });
         return 'Welcome the user to the service, acknowledging their subscription through GitHub. Provide them with information on how to start using the service or where to find help if needed.';
       default:
         return 'Inform the user that the subscription method they attempted is not recognized. Request them to choose among the available methods: email, Google, or GitHub, and try again.';
