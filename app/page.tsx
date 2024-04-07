@@ -1,5 +1,6 @@
 import Pricing from '@/components/ui/Pricing/Pricing';
 import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation'
 
 export default async function PricingPage() {
   const supabase = createClient();
@@ -25,6 +26,11 @@ export default async function PricingPage() {
     .eq('prices.active', true)
     .order('metadata->index')
     .order('unit_amount', { referencedTable: 'prices' });
+
+
+    if (user) {
+      redirect('/protected/user')
+    }
 
   return (
     <Pricing
