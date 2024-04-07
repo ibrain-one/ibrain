@@ -1,4 +1,6 @@
+import { HomeComponent } from '@/components/ui/Home';
 import Pricing from '@/components/ui/Pricing/Pricing';
+import Subscriptions from '@/components/ui/Subscriptions/Subscriptions';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
@@ -32,10 +34,14 @@ export default async function LandingMicroAppPage() {
   }
 
   return (
-    <Pricing
-      user={user}
-      products={products ?? []}
-      subscription={subscription}
-    />
+    <>
+      <HomeComponent />
+      <Subscriptions />
+      {/* <Pricing
+        user={user}
+        products={products ?? []}
+        subscription={subscription}
+      /> */}
+    </>
   );
 }

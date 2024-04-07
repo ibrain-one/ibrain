@@ -1,0 +1,15 @@
+@keyframes oscillate {
+  0% {
+    transform: rotate(2deg) translateX(-5px);
+  }
+  50% {
+    transform: rotate(-2deg) translateX(5px);
+  }
+  100% {
+    transform: rotate(2deg) translateX(-5px);
+  }
+}
+
+.oscillating-element {
+  animation: oscillate 5s ease-in-out infinite alternate; /* Adjust timing and duration as needed */
+}
