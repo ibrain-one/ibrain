@@ -24,7 +24,7 @@ const HomeComponent: React.FC<{}> = () => {
 export default HomeComponent;
 
 const Features = () => (
-  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-1  py-20">
+  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-1  py-20"  id='SectionOne'>
     <div className="flex flex-col justify-center items-center flex-grow px-8">
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[1280px] gap-20">
         <div className="flex flex-col justify-start items-center flex-grow gap-[150px] py-20">
@@ -266,7 +266,7 @@ const Features = () => (
 );
 
 const MobileFeatures = () => (
-  <div className="flex lg:hidden flex-col justify-center items-center py-10 px-4">
+  <div className="flex lg:hidden flex-col justify-center items-center py-10 px-4"   id='SectionTwo'>
     <div className="flex flex-col justify-start items-start gap-6">
       <div className="flex flex-col justify-start items-start gap-4">
         <p className="text-3xl font-semibold text-center text-white">
@@ -336,7 +336,7 @@ const MobileFeatures = () => (
 );
 
 const Informations = () => (
-  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-0  bg-[url('/section_info.png')] bg-contain bg-no-repeat bg-center">
+  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-0  bg-[url('/section_info.png')] bg-contain bg-no-repeat bg-center"   id='SectionThree'>
     <div className="flex flex-col justify-center items-center flex-grow px-8">
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[1280px] gap-20">
         <div className="flex flex-col justify-start items-center flex-grow gap-20 py-20">

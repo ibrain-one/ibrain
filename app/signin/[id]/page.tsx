@@ -72,17 +72,25 @@ export default async function SignIn({
           }
         >
           {viewProp === 'password_signin' && (
-            <PasswordSignIn
-              allowEmail={allowEmail}
-              redirectMethod={redirectMethod}
-            />
+            <>
+              <PasswordSignIn
+                allowEmail={allowEmail}
+                redirectMethod={redirectMethod}
+              />
+              <Separator text="Third-party sign-in" />
+              <OauthSignIn />
+            </>
           )}
           {viewProp === 'email_signin' && (
-            <EmailSignIn
-              allowPassword={allowPassword}
-              redirectMethod={redirectMethod}
-              disableButton={searchParams.disable_button}
-            />
+            <>
+              <EmailSignIn
+                allowPassword={allowPassword}
+                redirectMethod={redirectMethod}
+                disableButton={searchParams.disable_button}
+              />
+              <Separator text="Third-party sign-in" />
+              <OauthSignIn />
+            </>
           )}
           {viewProp === 'forgot_password' && (
             <ForgotPassword
@@ -95,7 +103,11 @@ export default async function SignIn({
             <UpdatePassword redirectMethod={redirectMethod} />
           )}
           {viewProp === 'signup' && (
-            <SignUp allowEmail={allowEmail} redirectMethod={redirectMethod} />
+            <>
+              <SignUp allowEmail={allowEmail} redirectMethod={redirectMethod} />
+              <Separator text="Third-party sign-in" />
+              <OauthSignIn />
+            </>
           )}
           {viewProp !== 'update_password' &&
             viewProp !== 'signup' &&

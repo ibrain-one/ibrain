@@ -10,6 +10,7 @@ export type TStoreState = {
 export enum EventNames {
   SpeechSpeaking = 'speech.speaking',
   SpeechSilent = 'speech.silent',
+  SpeechAction = 'speech.action',
   Speech2TextResult = 'speech2text.result',
   CommunicationUser = 'communication.user',
   CommunicationAI = 'communication.ai',

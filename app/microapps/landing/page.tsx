@@ -7,13 +7,13 @@ export default async function LandingMicroAppPage() {
   const supabase = createClient();
 
   const {
-    data: { user },error
+    data: { user },
+    error
   } = await supabase.auth.getUser();
 
   if (error) {
     console.log(error);
   }
-
 
   if (user) {
     redirect('/protected/user');
