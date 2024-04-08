@@ -13,7 +13,7 @@ export function IBrain() {
       window?.localStorage?.getItem('micPermissionGranted') &&
       !core.store.getState()?.userData
     ) {
-      ai.talk(`As iBrain, you welcome back the user! It's great to see user coming back. As always, you are here to assist with a wide range of tasks, from providing detailed insights to facilitating easy sign-ins. Remember, the first 14 days are free, allowing the user to fully experience what  you can offer without any commitment. 
+      ai.talk(`You are iBrain One, you welcome back the user in language: ${window?.navigator?.language ?? 'en-CA'}! It's great to see user coming back. As always, you are here to assist with a wide range of tasks, from providing detailed insights to facilitating easy sign-ins. Remember, the first 14 days are free, allowing the user to fully experience what  you can offer without any commitment. 
 
 Signing in is incredibly straightforward – just a simple voice command away, whether user prefer Google, GitHub, or email. And, of course, you multilingual support is here to ensure you can interact in the language user most comfortable with.
 
