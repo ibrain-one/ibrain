@@ -2,6 +2,7 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useBrainStack } from '../providers/brainstack';
 import { VoicePermissionAlert } from '@/components/ui/VoicePermissionAlert';
+import { EventNames } from '../providers/types';
 
 const SpeechRecognition =
   (global?.window as any)?.SpeechRecognition ||
@@ -97,7 +98,8 @@ export const useSpeech2text = () => {
       setMicPermissionGranted(true);
       setShowVoiceAlert(false);
       bstack.log.info('Mic permission granted');
-      window?.localStorage.setItem('micPermissionGranted', 'true'); // Set the flag in localStorage
+      window?.localStorage.setItem('micPermissionGranted', 'true');
+      bstack.store.emit(EventNames.VoicePermissionAccepted)
     } catch (error) {
       bstack.log.error('Microphone access denied.', error);
       setMicPermissionGranted(false);

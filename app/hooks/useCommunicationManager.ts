@@ -63,6 +63,7 @@ export const useCommunicationManager = (
       unsubscribe();
     };
   }, []);
+  
   useEffect(() => {
     const unsubscribe = bstack.store.on('ibrain.speak', (e: any) => {
       addAICommunication(e.text);

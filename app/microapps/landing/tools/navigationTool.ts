@@ -1,4 +1,4 @@
-import { createTool } from './createTool';
+import { createTool } from '../../../../factories/createTool';
 
 export interface NavigationArguments {
   destination: string;

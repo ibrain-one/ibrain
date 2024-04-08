@@ -1,12 +1,11 @@
 'use client';
 import { PropsWithChildren, Suspense } from 'react';
-import useIBrain from './hooks/useIBrain';
+import { IBrain } from './components/IBrain/IBrain';
 
 export default function LandingMicroAppLayout({ children }: PropsWithChildren) {
-  useIBrain();
-
   return (
     <Suspense>
+      <IBrain/>
       <section>{children}</section>
     </Suspense>
   );

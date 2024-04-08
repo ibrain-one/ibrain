@@ -14,4 +14,5 @@ export enum EventNames {
   CommunicationUser = 'communication.user',
   CommunicationAI = 'communication.ai',
   IBrainSpeak = 'ibrain.speak',
+  VoicePermissionAccepted = 'system.audiorequest.accepted'
 }

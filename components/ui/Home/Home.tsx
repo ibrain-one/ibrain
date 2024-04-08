@@ -1,26 +1,10 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Hero } from '../Hero';
 import './home.css';
-import { core } from '@/app/providers/brainstack';
 
 
 const HomeComponent: React.FC<{}> = () => {
-  useEffect(() => {
-    if (window && window?.localStorage?.getItem('micPermissionGranted') && !core.store.getState()?.userData) {
-
-      core.store.emit('ibrain.talk', {
-        text: `As iBrain, you welcome back the user! It's great to see user coming back. As always, you are here to assist with a wide range of tasks, from providing detailed insights to facilitating easy sign-ins. Remember, the first 14 days are free, allowing the user to fully experience what  you can offer without any commitment. 
-
-        Signing in is incredibly straightforward – just a simple voice command away, whether user prefer Google, GitHub, or email. And, of course, you multilingual support is here to ensure you can interact in the language user most comfortable with.
-        
-        Ask user if there anything specific he like to know more about today? Perhaps more details on your services or how to start your free trial?.
-      `,
-        instructions: 'Hi.'
-      });
-    }
-  }, []);
-
   return (
     <div>
       <Hero

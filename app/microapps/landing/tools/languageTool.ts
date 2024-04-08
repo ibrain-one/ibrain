@@ -1,5 +1,5 @@
 import { core } from '@/app/providers/brainstack';
-import { createTool } from './createTool';
+import { createTool } from '../../../../factories/createTool';
 
 export interface LanguageChangeArguments {
   language: string;
