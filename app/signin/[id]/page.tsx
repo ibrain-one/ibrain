@@ -77,8 +77,6 @@ export default async function SignIn({
                 allowEmail={allowEmail}
                 redirectMethod={redirectMethod}
               />
-              <Separator text="Third-party sign-in" />
-              <OauthSignIn />
             </>
           )}
           {viewProp === 'email_signin' && (
@@ -88,8 +86,6 @@ export default async function SignIn({
                 redirectMethod={redirectMethod}
                 disableButton={searchParams.disable_button}
               />
-              <Separator text="Third-party sign-in" />
-              <OauthSignIn />
             </>
           )}
           {viewProp === 'forgot_password' && (
