@@ -64,10 +64,11 @@ const TaskDisplayComponent: React.FC<{ isVisible: boolean }> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 h-full shadow-lg z-50 w-3/4 bg-black ${isVisible ? slideInClasses : slideOutClasses}`}
+      className={`fixed top-0 left-0 h-full shadow-lg z-50 w-3/4 bg-gray-800 opacity-95 ${isVisible ? slideInClasses : slideOutClasses}`}
     >
+      <h1 className="text-4xl font-bold text-center">Task Manager</h1>
       <div className="flex flex-wrap justify-around items-start mt-8 p-4">
-        <div className="flex flex-wrap justify-around items-start mt-8">
+        <div className="flex flex-wrap justify-around items-start mt-8 flex-1">
           <TaskCategoryDrawer
             title="Synchronous Tasks"
             tasks={syncTasks}
@@ -96,13 +97,13 @@ const TaskManager: React.FC = () => {
 
   // Determine the button's left position based on the overlay's visibility
   // Assuming the overlay width is 3/4 of the viewport (w-3/4 in Tailwind), adjust if your overlay width is different
-  const buttonLeftPosition = isTaskManagerVisible ? '75%' : '0px';
+  const buttonLeftPosition = isTaskManagerVisible ? '75%' : '-30px';
 
   return (
     <>
       <button
-        style={{ left: buttonLeftPosition }}
-        className={`fixed top-4 z-50 p-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-all duration-500 ease-in-out`}
+        style={{ left: buttonLeftPosition, transform: 'rotate(90deg)' }}
+        className={`fixed top-1/2  z-50 p-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-all duration-500 ease-in-out`}
         onClick={() => setIsTaskManagerVisible(!isTaskManagerVisible)}
       >
         {isTaskManagerVisible ? 'Hide Tasks' : 'Show Tasks'}

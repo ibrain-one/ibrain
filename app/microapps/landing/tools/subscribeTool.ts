@@ -7,8 +7,8 @@ export interface SubscriptionArguments {
 
 export const subscribeTool = createTool(
   'subscribe',
-  'Useful to subscribe using an Email, Google account, or GitHub account. The user may use terms like signin signup connect, they are synonyms in this context. For example: Lets subscribe by email or google. ',
-  [], // Required parameters
+  'Useful to subscribe using an Email, Google, or GitHub. The user may use terms like signin signup connect, they are synonyms in this context. For example: Lets subscribe by email or google. ',
+  ['method'], // Required parameters
   {
     method: {
       type: 'string',

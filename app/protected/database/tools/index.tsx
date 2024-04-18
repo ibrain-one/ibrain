@@ -1,16 +1,12 @@
 'use client';
-import { pricingTool } from './pricingTool';
 import { changeConversationLanguageTool } from './languageTool';
-import { subscribeTool } from './subscribeTool';
+import { translateToSQLTool } from './query';
 // import { navigateToFeatureTool } from './navigationTool';
-import { featureExplainerTool } from './featureTool';
 
 export const tools: any = {
-  pricing: pricingTool,
-  changeconversationlanguage: changeConversationLanguageTool,
-  subscribe: subscribeTool,
+  // changeconversationlanguage: changeConversationLanguageTool,
+  translatetosql: translateToSQLTool
   // navigateto: navigateToFeatureTool,
-  features: featureExplainerTool
 };
 // Tool lookup function
 export const getToolByName = (name: any) => {

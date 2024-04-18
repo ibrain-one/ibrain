@@ -25,6 +25,9 @@ export const useTextToSpeech = () => {
 
   const aiSpeak = (text: string) => {
     bstack.store.emit('speech.speaking');
+    if (!text) {
+      return;
+    }
     const sentences = text
       .split(/(?<=[.!?])/)
       .filter((sentence) => sentence.trim());
@@ -42,7 +45,7 @@ export const useTextToSpeech = () => {
       }
 
       if (trimmedSentence) {
-        const utterance = new SpeechSynthesisUtterance(trimmedSentence);
+        const utterance = new SpeechSynthesisUtterance(trimmedSentence.trim());
 
         // Set language based on state
         utterance.lang = bstack.store.getState()?.language || 'en-CA';

@@ -4,13 +4,13 @@ interface PricingArguments {
   plan?: string; // Name of the pricing plan
 }
 export const pricingTool = createTool(
-  'explainPricing',
-  'Provides information about the pricing plans offered by iBrain Data in the current speaking language.',
-  [],
+  'pricing',
+  'Provides information about the pricing plans offered by iBrain Data.',
+  ['plan'],
   {
     plan: {
       type: 'string',
-      description: 'Name of the pricing plan (optional).'
+      description: 'Name of the pricing plan can be "basic", "business" or "all".'
     }
   },
   async (args?: PricingArguments) => {

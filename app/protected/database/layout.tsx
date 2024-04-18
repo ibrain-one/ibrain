@@ -3,7 +3,7 @@ import { IBrain } from './components/IBrain/IBrain';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
-export default async function LandingMicroAppLayout({ children }: PropsWithChildren) {
+export default async function MicroAppLayout({ children }: PropsWithChildren) {
   const supabase = createClient();
 
   const {
@@ -15,8 +15,8 @@ export default async function LandingMicroAppLayout({ children }: PropsWithChild
     console.log(error);
   }
 
-  if (user) {
-    redirect('/protected/user');
+  if (!user) {
+    redirect('/signin');
   }
   return (
     <Suspense>

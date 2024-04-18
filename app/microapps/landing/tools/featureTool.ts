@@ -5,9 +5,9 @@ interface FeatureExplainerArguments {
 }
 
 export const featureExplainerTool = createTool(
-  'explainFeatures',
+  'features',
   'Explains the voice-driven features of iBrain Data, allowing users to interact with their business data through natural language.',
-  ['feature'], 
+  [], 
   {
     feature: {
       type: 'string',
@@ -26,7 +26,6 @@ export const featureExplainerTool = createTool(
         instructionForAI = `Explain the data integration capabilities of iBrain Data, illustrating how users can connect various data sources seamlessly. Emphasize the tool's ability to aggregate and interpret data from these sources, enabling comprehensive insights and analysis through voice commands.`;
         break;
       default:
-        // instructionForAI = `Provide an overview of iBrain Data's key features, including its voice-driven interface that allows users to interact with their business data through natural language. Mention the ease of integrating multiple data sources and the platform's support for advanced query generation and visualization capabilities. Encourage the user to explore these features to enhance their data interaction experience.`;
         instructionForAI = `Explain the iBrain Data using the following informations. It is important that you keep the section delimiter in your response. They are identified ##Action:SectionTwo## ##Action:SectionOne## ##Action:SectionThree## and they will be used to trigger UI accoding in sync with your response. Therefore they must be included in your response accordingly.
         
 ##Action:SectionOne##

@@ -38,7 +38,7 @@ export const useCommunicationManager = (
     }));
   };
 
-  const getHistory = (limit: number = history.length): CommunicationHistory => {
+  const getHistory = (limit: number): CommunicationHistory => {
     return bstack.store.getState()?.history?.slice(-limit);
   };
 

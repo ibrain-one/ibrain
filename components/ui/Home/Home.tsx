@@ -3,7 +3,6 @@ import React from 'react';
 import { Hero } from '../Hero';
 import './home.css';
 
-
 const HomeComponent: React.FC<{}> = () => {
   return (
     <div>
@@ -24,7 +23,7 @@ const HomeComponent: React.FC<{}> = () => {
 export default HomeComponent;
 
 const Features = () => (
-  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-1  py-20"  id='SectionOne'>
+  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-1  py-20">
     <div className="flex flex-col justify-center items-center flex-grow px-8">
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[1280px] gap-20">
         <div className="flex flex-col justify-start items-center flex-grow gap-[150px] py-20">
@@ -40,7 +39,10 @@ const Features = () => (
             <div className="flex-grow-0 flex-shrink-0 w-[283px] h-[289px] absolute left-[1112.5px] top-[-144px]  bg-[url('/frame-2.png')] oscillating-element bg-contain bg-no-repeat bg-center" />
             <div className="flex-grow-0 flex-shrink-0 w-[380px] h-[266px] absolute left-[352px] top-[7.5px]  bg-[url('/frame-1.png')] bg-cover bg-no-repeat bg-center" />
             <div className="flex flex-col justify-center items-start self-stretch flex-grow-0 flex-shrink-0 w-[600px] relative gap-6">
-              <p className="self-stretch flex-grow-0 flex-shrink-0 w-[600px] text-[56px] font-semibold text-left text-white">
+              <p
+                className="self-stretch flex-grow-0 flex-shrink-0 w-[600px] text-[56px] font-semibold text-left text-white"
+                id="SectionOne"
+              >
                 Intuitive Interaction
               </p>
               <p className="self-stretch flex-grow-0 flex-shrink-0 w-[600px] text-base text-left text-white">
@@ -81,7 +83,10 @@ const Features = () => (
                     />
                   </svg>
                   <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                    <p className="flex-grow-0 flex-shrink-0 w-[412px] text-2xl text-left text-white">
+                    <p
+                      className="flex-grow-0 flex-shrink-0 w-[412px] text-2xl text-left text-white"
+                      id="SectionTwo"
+                    >
                       Dynamic Language Adaptation
                     </p>
                     <p className="flex-grow-0 flex-shrink-0 w-[412px] text-lg font-light text-left text-[#fcfdff]">
@@ -182,7 +187,10 @@ const Features = () => (
                     />
                   </svg>
                   <div className="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 relative gap-2">
-                    <p className="flex-grow-0 flex-shrink-0 w-[412px] text-2xl text-left text-white">
+                    <p
+                      className="flex-grow-0 flex-shrink-0 w-[412px] text-2xl text-left text-white"
+                      id="SectionThree"
+                    >
                       Effortless Database Integration
                     </p>
                     <p className="flex-grow-0 flex-shrink-0 w-[412px] text-lg font-light text-left text-[#fcfdff]">
@@ -266,7 +274,7 @@ const Features = () => (
 );
 
 const MobileFeatures = () => (
-  <div className="flex lg:hidden flex-col justify-center items-center py-10 px-4"   id='SectionTwo'>
+  <div className="flex lg:hidden flex-col justify-center items-center py-10 px-4">
     <div className="flex flex-col justify-start items-start gap-6">
       <div className="flex flex-col justify-start items-start gap-4">
         <p className="text-3xl font-semibold text-center text-white">
@@ -336,7 +344,7 @@ const MobileFeatures = () => (
 );
 
 const Informations = () => (
-  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-0  bg-[url('/section_info.png')] bg-contain bg-no-repeat bg-center"   id='SectionThree'>
+  <div className="hidden lg:flex justify-center items-start self-stretch flex-grow-0 flex-shrink-0  bg-[url('/section_info.png')] bg-contain bg-no-repeat bg-center">
     <div className="flex flex-col justify-center items-center flex-grow px-8">
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[1280px] gap-20">
         <div className="flex flex-col justify-start items-center flex-grow gap-20 py-20">

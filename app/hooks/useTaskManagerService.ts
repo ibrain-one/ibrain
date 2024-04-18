@@ -94,6 +94,7 @@ export const useTaskManagerService = () => {
           setTaskHistory((prevHistory) => [
             {
               ...abortedTask,
+              id: abortedTask.id + '-aborted',
               status: 'Aborted',
               updatedAt: new Date(),
               completedAt: new Date()
@@ -112,6 +113,7 @@ export const useTaskManagerService = () => {
           setTaskHistory((prevHistory) => [
             {
               ...abortedTask,
+              id: abortedTask.id + '-aborted',
               status: 'Aborted',
               updatedAt: new Date(),
               completedAt: new Date()
@@ -168,17 +170,16 @@ export const useTaskManagerService = () => {
   );
 
   const abortAllAsyncTasks = useCallback(() => {
-    asyncTasks.forEach(task => {
+    asyncTasks.forEach((task) => {
       abortTask(task.id);
     });
   }, [asyncTasks, abortTask]); // Depend on abortTask
-  
+
   const abortAllSyncTasks = useCallback(() => {
-    syncTasks.forEach(task => {
+    syncTasks.forEach((task) => {
       abortTask(task.id);
     });
   }, [syncTasks, abortTask]); // Depend on abortTask
-  
 
   useEffect(() => {
     if (syncTasks.length > 0 && syncTasks[0].status === 'Pending') {
