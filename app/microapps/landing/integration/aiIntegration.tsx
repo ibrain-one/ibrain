@@ -41,10 +41,15 @@ const talk = async (thoughts: string) => {
   core.store.emit(EventNames.IBrainSpeak, { text: answer?.trim() });
 };
 
+const talkStraight = async (text: string) => {
+  core.store.emit(EventNames.IBrainSpeak, { text: text?.trim() });
+};
+
 export const ai = {
   ask,
   askWithTools,
   askQuick,
   talk,
+  talkStraight,
   client: aiIntegration
 };

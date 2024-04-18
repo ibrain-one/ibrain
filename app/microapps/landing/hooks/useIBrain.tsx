@@ -20,7 +20,6 @@ export default function useIBrain() {
 
   const processUserMessage = async (text: string) => {
     const messages: Array<ChatCompletionMessageParam> = [{role:'user',content:generatePrompt(text)}]
-    // messages.push({ role: 'user', content: `You will answer back in following language: ${bstack.store.getState()?.language ?? 'en-CA'}\n${text}` });
 
     const answer = await ai.askWithTools(messages);
 
@@ -57,7 +56,7 @@ export default function useIBrain() {
       const toolanswer = await ai.askWithTools(messages);
 
       bstack.store.emit('ibrain.speak', {
-        text: toolanswer?.choices?.[0]?.message.content
+        text: toolanswer?.choices?.[0]?.message.content?.trim()
       });
     }
   };

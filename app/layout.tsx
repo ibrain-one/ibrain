@@ -11,12 +11,12 @@ import { TaskManagerProvider } from './providers/taskManager';
 import TaskDisplayComponent from '@/components/ui/TaskManager/TaskDisplayComponent';
 
 const meta = {
-  title: 'Next.js Subscription Starter',
-  description: 'Brought to you by Vercel, Stripe, and Supabase.',
-  cardImage: '/og.png',
+  title: 'Your Business Answers, Just a Conversation Away | iBrain',
+  description: 'Empower your team with iBrain - intuitive AI assistant for dynamic language interaction, schema-aware data analysis, and effortless database integration.',
+  cardImage: '/header.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
-  url: getURL()
+  url: 'https://my.ibrain.one'
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,10 +24,10 @@ export async function generateMetadata(): Promise<Metadata> {
     title: meta.title,
     description: meta.description,
     referrer: 'origin-when-cross-origin',
-    keywords: ['Vercel', 'Supabase', 'Next.js', 'Stripe', 'Subscription'],
-    authors: [{ name: 'Vercel', url: 'https://vercel.com/' }],
-    creator: 'Vercel',
-    publisher: 'Vercel',
+    keywords: ['iBrain', 'AI assistant', 'natural language interaction', 'database integration'],
+    authors: [{ name: 'iBrain Team', url: 'https://my.ibrain.one' }],
+    creator: 'iBrain',
+    publisher: 'iBrain',
     robots: meta.robots,
     icons: { icon: meta.favicon },
     metadataBase: new URL(meta.url),
@@ -37,18 +37,19 @@ export async function generateMetadata(): Promise<Metadata> {
       description: meta.description,
       images: [meta.cardImage],
       type: 'website',
-      siteName: meta.title
+      siteName: 'iBrain'
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@Vercel',
-      creator: '@Vercel',
+      site: '@InfinisoftI',
+      creator: '@InfinisoftI',
       title: meta.title,
       description: meta.description,
       images: [meta.cardImage]
     }
   };
 }
+
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (

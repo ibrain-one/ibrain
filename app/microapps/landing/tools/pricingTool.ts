@@ -10,7 +10,7 @@ export const pricingTool = createTool(
   {
     plan: {
       type: 'string',
-      description: 'Name of the pricing plan can be "basic", "business" or "all".'
+      description: 'Name of the pricing plan can be "basic" or "business".'
     }
   },
   async (args?: PricingArguments) => {

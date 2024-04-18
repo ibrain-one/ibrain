@@ -16,7 +16,7 @@ export const executeToolCall = async (toolCall: any) => {
     core.log.verbose(
       `Tool Call Function Name: ${String(toolCall.function.name).toLowerCase()} with argument`,args
     );
-    const content = await tool.execute(args);
+    const content = (await tool.execute(args))?.trim() ?? '';
     core.log.verbose(
       `Tool Call Function Name: ${String(toolCall.function.name).toLowerCase()} with argument`,args, ` Result: `, content
     );
