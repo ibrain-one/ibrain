@@ -19,7 +19,10 @@ export default function useIBrain() {
   // const messages: Array<ChatCompletionMessageParam> = getHistory(5); //[];
 
   const processUserMessage = async (text: string) => {
-    const messages: Array<ChatCompletionMessageParam> = [{role:'user',content:generatePrompt(text)}]
+    const messages: Array<ChatCompletionMessageParam> = [
+      {role:'system', content:`Your name is iBrain and you are the a website AI assistant. You will call apprropriate function. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous.`},
+      { role: 'user', content: text }
+    ];
 
     const answer = await ai.askWithTools(messages);
 

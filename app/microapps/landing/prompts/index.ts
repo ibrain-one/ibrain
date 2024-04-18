@@ -8,7 +8,7 @@ export const generatePrompt = (message: string) => {
       ? 'It is the first message'
       : JSON.stringify(arrayHistory?.slice?.(-5));
 
-  return `You are iBrain One an AI assistant. You will respond the user message concerning your features, pricing and anything related to it. If discussion fall out of scope, politely bring back the topic accoridngly. Considering the following instructions:
+  return `You are iBrain One an AI assistant. You will respond the user message concerning your features, pricing and anything related to it. You are equipped with tools functions, you will use them when useful to respond better. If discussion fall out of scope, politely bring back the topic accoridngly. Considering the following instructions:
 The discussion history:
 ${history}
 

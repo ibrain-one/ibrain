@@ -6,7 +6,7 @@ export const featureExplainerTool = createTool(
   [],
   {},
   async () => {
-    let instructionForAI: string = `Explain the iBrain Data using the following informations. It is important that you keep the section delimiter in your response. They are identified ##Action:SectionTwo## ##Action:SectionOne## ##Action:SectionThree## and they will be used to trigger UI accoding in sync with your response. Therefore they must be included in your response accordingly.
+    let instructionForAI: string = `Explain the iBrain Data using the following informations. It is mandatory that you keep the section delimiter in your response. They are identified ##Action:SectionTwo## ##Action:SectionOne## ##Action:SectionThree## and they will be used to trigger UI accoding in sync with your response. Therefore they must be included in your response accordingly.
         
     ##Action:SectionOne##
     Introduction to iBrain's Core Features
