@@ -16,6 +16,7 @@ export interface Communication {
 
 export type CommunicationHistory = Communication[];
 
+
 export const useCommunicationManager = (
   options: UseCommunicationManagerOptions
 ) => {
