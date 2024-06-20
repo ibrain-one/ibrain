@@ -40,6 +40,4 @@ yarn-error.log*
 # certificates
 certificates
 
-*-lock.json
-*-lock.yaml
 test11
