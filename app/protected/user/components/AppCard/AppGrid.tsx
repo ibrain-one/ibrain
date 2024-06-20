@@ -39,6 +39,12 @@ const apps = [
     description: 'This is the second app.',
     icon:<MessageCircleQuestion size={72} strokeWidth={1.5} />,
     link:"/protected/insights"
+  },
+  {
+    title: 'Brainstorm',
+    description: 'Discuss ideas and create structured documents with iBrain.',
+    icon:<MessageCircleQuestion size={72} strokeWidth={1.5} />,
+    link:"/protected/brainstorm"
   }
 ];
 

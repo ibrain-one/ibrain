@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Playground</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #chat-box {
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      #user-input {
+        width: calc(100% - 200px);
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      #send-btn {
+        padding: 8px 15px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #model-select {
+        width: 180px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="chat-box"></div>
+      <div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <select id="model-select">
+          <option value="Xenova/distilbert-base-uncased-mnli">
+            Xenova/distilbert-base-uncased-mnli
+          </option>
+          <option value="Xenova/bart-large-mnli">Xenova/bart-large-mnli</option>
+          <option value="Xenova/mobilebert-uncased-mnli">
+            Xenova/mobilebert-uncased-mnli
+          </option>
+          <option value="Xenova/nli-deberta-v3-xsmall" selected>
+            Xenova/nli-deberta-v3-xsmall
+          </option>
+          <option value="Xenova/nli-deberta-v3-small">
+            Xenova/nli-deberta-v3-small
+          </option>
+          <option value="Xenova/nli-deberta-v3-base">
+            Xenova/nli-deberta-v3-base
+          </option>
+          <option value="Xenova/DeBERTa-v3-xsmall-mnli-fever-anli-ling-binary">
+            Xenova/DeBERTa-v3-xsmall-mnli-fever-anli-ling-binary
+          </option>
+          <option value="Xenova/DeBERTa-v3-base-mnli">
+            Xenova/DeBERTa-v3-base-mnli
+          </option>
+          <option value="Xenova/DeBERTa-v3-base-mnli-fever-anli">
+            Xenova/DeBERTa-v3-base-mnli-fever-anli
+          </option>
+          <option value="Xenova/deberta-v3-base-tasksource-nli">
+            Xenova/deberta-v3-base-tasksource-nli
+          </option>
+          <option value="Xenova/nli-deberta-base">
+            Xenova/nli-deberta-base
+          </option>
+          <option value="Xenova/deberta-large-mnli-zero-cls">
+            Xenova/deberta-large-mnli-zero-cls
+          </option>
+          <option value="Xenova/nli-deberta-v3-large">
+            Xenova/nli-deberta-v3-large
+          </option>
+          <option value="Xenova/DeBERTa-v3-large-mnli-fever-anli-ling-wanli">
+            Xenova/DeBERTa-v3-large-mnli-fever-anli-ling-wanli
+          </option>
+          <option value="Xenova/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">
+            Xenova/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7
+          </option>
+          <option value="Xenova/deberta-v3-large-tasksource-nli">
+            Xenova/deberta-v3-large-tasksource-nli
+          </option>
+          <option value="Xenova/esm2_t6_8M_UR50D_sequence_classifier_v1">
+            Xenova/esm2_t6_8M_UR50D_sequence_classifier_v1
+          </option>
+          <option value="iagovar/zeroshot_selectra_medium_onnx">
+            iagovar/zeroshot_selectra_medium_onnx
+          </option>
+        </select>
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+
+    <script type="module">
+      import {
+        pipeline,
+        env
+      } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1';
+    //   env.allowLocalModels = false;
+
+      async function classifyText(text, model) {
+        const classifier = await pipeline('zero-shot-classification', model);
+        const labels = [
+        //   'intention require planning',
+          'discussion message',
+        //   'out of scope',
+          'task'
+        ];
+        // const labels = ['text incomplete wait', 'text complete answer now', 'out of the scope ignore'];
+        const output = await classifier(text, labels, { multi_label: true });
+
+        return output.labels
+          .map((label, index) => `${label}: ${output.scores[index]}`)
+          .join(', ');
+      }
+
+      async function generateText(prompt, model) {
+        const textGenerator = await pipeline(
+          'text-generation',
+          'Xenova/distilgpt2'
+        );
+        const output = await textGenerator(prompt);
+        return output[0].generated_text;
+      }
+
+      const chatBox = document.getElementById('chat-box');
+      const userInput = document.getElementById('user-input');
+      const modelSelect = document.getElementById('model-select');
+      const sendBtn = document.getElementById('send-btn');
+
+      sendBtn.addEventListener('click', async () => {
+        await sendMessage(userInput.value, modelSelect.value);
+      });
+
+      userInput.addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter') {
+          await sendMessage(userInput.value, modelSelect.value);
+        }
+      });
+
+      async function sendMessage(message, model) {
+        if (message.trim() === '') return;
+
+        // Get the current time before sending the message
+        const startTime = new Date();
+
+        const userMessageElement = document.createElement('div');
+        userMessageElement.textContent = `You: ${message}`;
+        chatBox.appendChild(userMessageElement);
+
+        const botMessage = await classifyText(message, model);
+
+        // Get the current time after receiving the response
+        const endTime = new Date();
+
+        // Calculate the time taken for the response
+        const responseTime = (endTime - startTime) / 1000; // Convert to seconds
+
+        const botMessageElement = document.createElement('div');
+        botMessageElement.textContent = `Bot (${responseTime.toFixed(2)}s): ${botMessage}`;
+        chatBox.appendChild(botMessageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        userInput.value = '';
+      }
+    </script>
+  </body>
+</html>
