@@ -10,19 +10,16 @@ import { generatePrompt } from '../prompts';
 
 export default function useIBrain() {
   const bstack = useBrainStack();
-  // DONT USE useCommunciationManager() twice
   const { getHistory } = useCommunicationManager({});
-  // const promptBuilderMock = (action: string, message: string) =>
-  //   `Prompt Test: action: ${action} message: ${message} history: ` +
-  //   getHistory(5);
-
-  // const messages: Array<ChatCompletionMessageParam> = getHistory(5); //[];
-  const messages: Array<ChatCompletionMessageParam> = [
-    {role:'system', content:`You will call apprropriate function. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous.`}
-  ];
 
   const processUserMessage = async (text: string) => {
-    messages.push({ role: 'user', content: text });
+    const messages: Array<ChatCompletionMessageParam> = [
+      { role: 'system', content: `You are iBrain One an AI assistant. You will call apprropriate function only if required. Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous.` }
+    ];
+    messages.push({
+      role: 'user',
+      content: generatePrompt(text, getHistory(5))
+    });
 
     const answer = await ai.askWithTools(messages);
 

@@ -8,7 +8,7 @@ import { useGoogleAnalytics } from '@/app/hooks/useGoogleAnalytics';
 
 export default function Init() {
   const bstack = useBrainStack();
-  useDevTools(core);
+  useDevTools(bstack);
   const { VoicePermissionRequest } = useSpeech2text();
   useTextToSpeech();
   useGoogleAnalytics()
